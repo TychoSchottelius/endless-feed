@@ -1,18 +1,15 @@
-const feed = document.getElementById( "feed");
-const messagePool = [
-  "Nachricht A", "Nachricht B", "Nachricht C"
-];
-let index = 0;
+const feed = document.getElementById("feed");
 let lastMessage = null;
 let observer;
 
-function getRandomMessage() {
-    if (messagePool.length === 0) return "";
-    if (messagePool.length === 1) return messagePool[0];
+function generateRandomMessage() {
+    if (messageTemplates.templates.length === 0) return "no messages available.";
+
     let newMessage;
     do {
-        newMessage = messagePool[Math.floor(Math.random() * messagePool.length)];
-    } while (newMessage === lastMessage);
+        newMessage = messageTemplates.templates[Math.floor(Math.random() * messageTemplates.templates.length)];
+    } while (newMessage === lastMessage && messageTemplates.templates.length > 1);
+
     lastMessage = newMessage;
     return newMessage;
 }
@@ -21,16 +18,14 @@ function addMessages(count = 5) {
     for (let i = 0; i < count; i++) {
         const message = document.createElement("div");
         message.className = "message";
-        const randomMessage = getRandomMessage();
-        message.textContent = randomMessage;
+        message.textContent = generateRandomMessage();
         feed.appendChild(message);
-        lastMessage = randomMessage;
     }
-    setupOberserver();
+    setupObserver();
 }
 
 // Intersection Observer for endless scrolling
-function setupOberserver() {
+function setupObserver() {
     if (observer) {
         observer.disconnect();
     }
@@ -38,10 +33,13 @@ function setupOberserver() {
         if (entries[0].isIntersecting) {
             addMessages(5);
         }
-    }, { threshold: 1.0 });
+    }, {threshold: 1.0});
     if (feed.lastElementChild) {
         observer.observe(feed.lastElementChild);
     }
 }
 
-addMessages(10);
+window.addEventListener("DOMContentLoaded", () => {
+    addMessages(10);
+    setupObserver();
+});
