@@ -1,0 +1,10 @@
+#feed{
+    height: 100vh;
+    overflow-y: scroll;
+}
+.message{
+    min-height: 100px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+}
