@@ -29,7 +29,6 @@ function generateRandomCard() {
     const font = fonts[Math.floor(Math.random() * fonts.length)];
     const fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
     const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-    const textColor = textColors[Math.floor(Math.random() * textColors.length)];
 
     const card = document.createElement("div");
     card.className = "card";
@@ -38,7 +37,7 @@ function generateRandomCard() {
     card.style.fontSize = fontSize;
     card.style.padding = `calc(${parseInt(fontSize)}px * 0,75)`;
     card.style.backgroundColor = backgroundColor;
-    card.style.color = textColor;
+    card.style.color = '#000000';
 
     return card;
 }

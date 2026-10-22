@@ -15,9 +15,8 @@ body {
 }
 .card {
     text-align: center;
-    /*min-height: 3em;*/
     padding: 1em;
-    /*margin: 4vw 22vw;*/
+    margin-top: 3em;
     border: 4px hidden white;
     border-radius: 10px;
     width: fit-content;
