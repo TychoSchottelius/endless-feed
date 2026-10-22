@@ -1,25 +1,51 @@
 const feed = document.getElementById("feed");
-let lastMessage = null;
 let observer;
 
-function generateRandomMessage() {
-    if (messageTemplates.templates.length === 0) return "no messages available.";
+// history of recent texts. recentSet only contains unique texts, which accelerates lookups.
+// but recentTexts is still needed to find oldest text in history.
+const textHistorySize = 10;
+const effectiveTextHistorySize = Math.min(textHistorySize, messageTexts.length - 1);
+const recentTexts = [];
+const recentSet = new Set();
 
-    let newMessage;
+function pickText(){
+    if (messageTexts.length === 0) return "no messages available.";
+    let text;
     do {
-        newMessage = messageTemplates.templates[Math.floor(Math.random() * messageTemplates.templates.length)];
-    } while (newMessage === lastMessage && messageTemplates.templates.length > 1);
-
-    lastMessage = newMessage;
-    return newMessage;
+        text = messageTexts[Math.floor(Math.random() * messageTexts.length)];
+    } while (recentSet.has(text));
+    recentTexts.push(text);
+    recentSet.add(text);
+    if (recentTexts.length > effectiveTextHistorySize) {
+        const oldestText = recentTexts.shift();
+        recentSet.delete(oldestText);
+    }
+    return text;
 }
 
-function addMessages(count = 5) {
+function generateRandomCard() {
+    const text = pickText();
+
+    const font = fonts[Math.floor(Math.random() * fonts.length)];
+    const fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+    const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+    const textColor = textColors[Math.floor(Math.random() * textColors.length)];
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.textContent = text;
+    card.style.fontFamily = font;
+    card.style.fontSize = fontSize;
+    card.style.padding = `calc(${parseInt(fontSize)}px * 0,75)`;
+    card.style.backgroundColor = backgroundColor;
+    card.style.color = textColor;
+
+    return card;
+}
+
+function addCard(count = 5) {
     for (let i = 0; i < count; i++) {
-        const message = document.createElement("div");
-        message.className = "message";
-        message.textContent = generateRandomMessage();
-        feed.appendChild(message);
+        feed.appendChild(generateRandomCard());
     }
     setupObserver();
 }
@@ -31,7 +57,7 @@ function setupObserver() {
     }
     observer = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting) {
-            addMessages(5);
+            addCard(5);
         }
     }, {threshold: 1.0});
     if (feed.lastElementChild) {
@@ -40,6 +66,6 @@ function setupObserver() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    addMessages(10);
+    addCard(10);
     setupObserver();
 });

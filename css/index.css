@@ -1,10 +1,27 @@
-#feed{
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#feed {
     height: 100vh;
     overflow-y: scroll;
+    box-sizing: border-box;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
 }
-.message{
-    min-height: 100px;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid black;
+.card {
+    text-align: center;
+    /*min-height: 3em;*/
+    padding: 1em;
+    /*margin: 4vw 22vw;*/
+    border: 4px hidden white;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 80%;
+    height: fit-content;
+
 }
