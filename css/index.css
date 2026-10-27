@@ -33,7 +33,7 @@ body {
     text-align: center;
     background: #1a1a1a;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Courier New', monospace;
     z-index: 10;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -47,4 +47,10 @@ body {
 
 .feed {
     padding-top: 64px;
+}
+
+@media (max-width: 600px) {
+    .banner {
+        font-size: 22px;
+    }
 }

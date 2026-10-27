@@ -27,15 +27,17 @@ function generateRandomCard() {
     const text = pickText();
 
     const font = fonts[Math.floor(Math.random() * fonts.length)];
-    const fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+    const isMobile = window.matchMedia("(max-width: 600px)").matches;
+    const fontSizes = isMobile ? fontSizesMobile[Math.floor(Math.random() * fontSizesDesktop.length)]
+        : fontSizesDesktop[Math.floor(Math.random() * fontSizesDesktop.length)];
     const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
 
     const card = document.createElement("div");
     card.className = "card";
     card.textContent = text;
     card.style.fontFamily = font;
-    card.style.fontSize = fontSize;
-    card.style.padding = `calc(${parseInt(fontSize)}px * 0,75)`;
+    card.style.fontSize = fontSizes;
+    card.style.padding = `calc(${parseInt(fontSizes)}px * 0,75)`;
     card.style.backgroundColor = backgroundColor;
     card.style.color = '#000000';
 
