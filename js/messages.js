@@ -83,5 +83,6 @@ const messageTexts = [
     "Maybe she's born with it",
     "Work, rest and play",
     "You're the best",
-    "You're the only one"
+    "You're the only one",
+    "and another one"
 ];

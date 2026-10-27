@@ -22,5 +22,29 @@ body {
     width: fit-content;
     max-width: 80%;
     height: fit-content;
+}
 
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 16px;
+    text-align: center;
+    background: #1a1a1a;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    z-index: 10;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.banner.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;   /* Klicks fall through */
+}
+
+.feed {
+    padding-top: 64px;
 }

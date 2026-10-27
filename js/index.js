@@ -1,8 +1,8 @@
 const feed = document.getElementById("feed");
 let observer;
 
-// history of recent texts. recentSet only contains unique texts, which accelerates lookups.
-// but recentTexts is still needed to find oldest text in history.
+// history of recent texts. recentSet only contains unique texts, which speeds up lookups.
+// but recentTexts is still needed to find the oldest text in history.
 const textHistorySize = 10;
 const effectiveTextHistorySize = Math.min(textHistorySize, messageTexts.length - 1);
 const recentTexts = [];
@@ -68,3 +68,14 @@ window.addEventListener("DOMContentLoaded", () => {
     addCard(10);
     setupObserver();
 });
+
+const banner = document.getElementById("banner");
+
+function handleScroll() {
+    if (feed.scrollTop > 40) {          // after 40px of scrolling ...
+        banner.classList.add("hidden");    // ... hide Banner
+        feed.removeEventListener("scroll", handleScroll);
+    }
+}
+
+feed.addEventListener("scroll", handleScroll);
